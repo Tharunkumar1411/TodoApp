@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTodo, setTodo } from "./store/todo";
 import { getUser } from "./store/user";
 import toast, { Toaster } from 'react-hot-toast';
+import AllTodo from "./components/AllTodo";
+import ActiveTodo from "./components/ActiveTodo";
+import ExpiredTodo from "./components/ExpiredTodo";
+import { setActive } from "./store/active";
 
 const useStyles = makeStyles((theme) => ({
     addBtn:{
@@ -31,14 +35,26 @@ const useStyles = makeStyles((theme) => ({
         color:"black",
         outline:"none",
         borderRadius:"0.2rem",
+    },
 
+    switchTab:{
+        display:"flex",
+        flexDirection:"row",
+        gap:"1rem",
+        padding:"1rem",
+        justifyContent:"center"
+    },
+    swithchBtn:{
+        color:"white",
+        border:"0.1rem solid grey",
+    
     }
 }));
 
 const notify = () => toast.success('Your Todo Added.');
 
 const TodoPage = () => {
-
+    const [tab, setTab] = useState(<AllTodo />)
     const TodoDetails = useSelector(getTodo);
     const UserDetail = useSelector(getUser);
     const [form, setForm] = useState("");
@@ -55,6 +71,7 @@ const TodoPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(setTodo(form));
+        dispatch(setActive(form));
         handleClose();
         notify();
     }
@@ -67,8 +84,14 @@ const TodoPage = () => {
                 Add Todo
             </Button>
 
+            <div className={classes.switchTab}>
+                <Button className={classes.swithchBtn} onClick={() => setTab(<AllTodo />)}>All</Button>
+                <Button className={classes.swithchBtn} onClick={() => setTab(<ActiveTodo />)}>Active</Button>
+                <Button className={classes.swithchBtn} onClick={() => setTab(<ExpiredTodo />)}>Expired</Button>
+            </div>
+
             <div>
-                
+                {tab}
             </div>
 
             <div>
@@ -79,7 +102,6 @@ const TodoPage = () => {
                             onChange={(e) => setForm(e.target.value)}
                         />
                         <button className={classes.btn} type="submit">Add</button>
-
                     </form>
                 </Dialog>
             </div>
