@@ -14,7 +14,7 @@ const ExpiredTodo = () => {
             <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
                 {(ExpireTodo.length == 0)? 
                 <div className={styles.notFound}>
-                    <h5>No Data Found</h5>
+                    <h5>Empty Todo</h5>
                 </div>
                 : ExpireTodo.map((e,i) => {
                     return(
