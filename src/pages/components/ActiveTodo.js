@@ -2,7 +2,6 @@ import { Button, Card, CardHeader, Grid, makeStyles } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getActive, removeActive } from "../../store/active";
 import { setExpire } from "../../store/expire";
-import { getTodo } from "../../store/todo";
 import styles from "../../styles/Home.module.css";
 
 
@@ -32,7 +31,7 @@ const ActiveTodo = () => {
                         <Grid item xs={12} sm={4} md={4} key={i} >
                             <Card style={{backgroundColor:"#ced8db"}}>
                                 <CardHeader title={e} />
-                                <Button onClick={() => handleDone(e)}>Done ☑️</Button>
+                                <Button onClick={() => handleDone(e)}>Completed ❔</Button>
                             </Card>
                         </Grid>
                     )

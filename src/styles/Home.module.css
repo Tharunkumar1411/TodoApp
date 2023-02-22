@@ -81,3 +81,7 @@
   margin-right: auto;
   padding-top:2rem;
 }
+
+.completedBtn{
+  border: 0.2rem solid grey
+}
