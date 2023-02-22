@@ -34,5 +34,40 @@
 /*TodoPage*/
 
 .addBtn {
-  color: white;
+  display:flex;
+  margin-left:auto;
+  margin-right:auto;
+  color:white;
+  font-weight:bold;
+  border:solid 0.2rem white;
+}
+
+.dialogBody {
+  padding: 1rem;
+  display:flex;
+  flex-direction:column;
+  gap: 0.5rem;
+  
+}
+
+.inputField {
+  background:none;
+  padding:0.2rem;
+  color:black;
+  outline:none;
+  border-radius:0.2rem;
+}
+
+.switchTab {
+  display:flex;
+  flex-direction:row;
+  gap:1rem;
+  padding:1rem;
+  justify-content:center;
+}
+
+.swithchBtn {
+  color:white;
+  border:0.1rem solid grey;
+
 }
