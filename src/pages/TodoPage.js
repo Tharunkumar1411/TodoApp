@@ -1,5 +1,3 @@
-import { Button, Dialog, DialogTitle, IconButton, makeStyles } from "@material-ui/core";
-import { Add, PlusOne } from "@material-ui/icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodo, setTodo } from "./store/todo";
@@ -9,6 +7,9 @@ import AllTodo from "./components/AllTodo";
 import ActiveTodo from "./components/ActiveTodo";
 import ExpiredTodo from "./components/ExpiredTodo";
 import { setActive } from "./store/active";
+import { Add } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles";
+import { Button, Dialog, DialogTitle } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
     addBtn:{
