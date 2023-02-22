@@ -61,7 +61,7 @@ const TodoPage = () => {
                             onChange={(e) => setForm(e.target.value)}
                         />
                         <button className={styles.btn} type="submit">Add</button>
-                    </form>
+                    </form> 
                 </Dialog>
             </div>
 
