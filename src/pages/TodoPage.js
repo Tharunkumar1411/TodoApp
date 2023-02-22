@@ -37,7 +37,7 @@ const TodoPage = () => {
 
     return(
         <div style={{paddingTop:"0.5rem"}}>
-            <h1 style={{padding:"1rem"}}>Welcome {UserDetail}</h1>
+            <h1 style={{padding:"1rem"}}>Welcome {UserDetail}</h1><br />
 
             <Button variant="outlined" className={styles.addBtn} onClick={() => setOpen(true)}>
                 Add Todo's
@@ -57,7 +57,7 @@ const TodoPage = () => {
             <Dialog onClose={handleClose} open={open}>
                 <DialogTitle>Add Your Todo</DialogTitle>
                     <form onSubmit={handleSubmit} className={styles.dialogBody}>
-                        <input type="text" placeholder='Todo' required className={styles.inputField} value={form} 
+                        <input type="text" placeholder='Todo' required className={styles.input} value={form} 
                             onChange={(e) => setForm(e.target.value)}
                         />
                         <button className={styles.btn} type="submit">Add</button>

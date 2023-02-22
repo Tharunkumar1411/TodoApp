@@ -34,12 +34,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-          <p>
-            Developed by &nbsp;
-            <code className={styles.code}>Tharunkumar Govindharaj</code>
-          </p>
-        </div>
+
 
         <div className={styles.center}>
             <h1>ToDo App 📝</h1>

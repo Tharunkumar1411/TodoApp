@@ -27,20 +27,20 @@
 
 .btn {
   width: fit-content;
-  padding: 0.2rem;
+  padding: 0.5rem;
   border-radius: 0.3rem;
 }
 
 /*TodoPage*/
 
 .addBtn {
-  display:flex;
-  margin-left:auto;
-  margin-right:auto;
   color:white;
   font-weight:bold;
-  border:solid 0.2rem white;
-
+  border: solid 0.2rem white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .dialogBody {
@@ -51,10 +51,10 @@
   
 }
 
-.inputField {
+.input {
   background:none;
   padding:0.2rem;
-  color:white;
+  color:black;
   outline:none;
   border-radius:0.2rem;
 }
@@ -71,4 +71,13 @@
   color:white;
   border:0.1rem solid grey;
 
+}
+
+/*components folder*/
+
+.notFound{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top:2rem;
 }
