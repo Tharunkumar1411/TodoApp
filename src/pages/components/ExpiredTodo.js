@@ -11,7 +11,7 @@ const ExpiredTodo = () => {
         <div>
             <h1  style={{textAlign:"center"}}>Expire todo</h1>
 
-            <Grid container spacing={2} style={{margin:"0.4rem"}}>
+            <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
                 {(ExpireTodo.length == 0)? 
                 <div className={styles.notFound}>
                     <h5>No Data Found</h5>
@@ -19,7 +19,7 @@ const ExpiredTodo = () => {
                 : ExpireTodo.map((e,i) => {
                     return(
                         <Grid item xs={12} sm={4} md={4} key={i} >
-                            <Card>
+                            <Card style={{backgroundColor:"#ced8db"}}>
                                 <CardHeader title={e} />
                             </Card>
                         </Grid>

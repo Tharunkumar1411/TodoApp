@@ -11,7 +11,7 @@ const AllTodo = () => {
         <div>
             <h1  style={{textAlign:"center"}}>All todo</h1>
 
-            <Grid container spacing={2} style={{margin:"0.4rem"}}>
+            <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
                 {(AllTodo.length == 0)? <div className={styles.notFound}>
                     <h5>Empty Todo</h5>
                 </div>
@@ -19,7 +19,7 @@ const AllTodo = () => {
                 AllTodo.map((e,i) => {
                     return(
                         <Grid item xs={12} sm={4} md={4} key={i} >
-                            <Card>
+                            <Card style={{backgroundColor:"#ced8db"}}>
                                 <CardHeader title={e} />
                             </Card>
                         </Grid>

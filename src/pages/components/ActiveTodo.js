@@ -21,7 +21,7 @@ const ActiveTodo = () => {
         <div>
             <h1 style={{textAlign:"center"}}>Active todo</h1>
 
-            <Grid container spacing={2} style={{margin:"0.4rem"}}>
+            <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
                 {(ActiveTodo.length == 0)? 
                 <div className={styles.notFound}>
                     <h5>Empty Todo</h5>
@@ -30,9 +30,9 @@ const ActiveTodo = () => {
                 ActiveTodo.map((e,i) => {
                     return(
                         <Grid item xs={12} sm={4} md={4} key={i} >
-                            <Card>
+                            <Card style={{backgroundColor:"#ced8db"}}>
                                 <CardHeader title={e} />
-                                <Button onClick={() => handleDone(e)}>Done</Button>
+                                <Button onClick={() => handleDone(e)}>Done ☑️</Button>
                             </Card>
                         </Grid>
                     )
