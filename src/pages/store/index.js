@@ -11,8 +11,8 @@ const reducers = combineReducers({
     expire: ExpireReducer,
 });
 
-const store = configureStore({
+const Store = configureStore({
     reducer: reducers
 });
 
-export default store;
+export default Store;
