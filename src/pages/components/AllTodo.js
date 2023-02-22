@@ -1,7 +1,6 @@
+import { getTodo } from "@/store/todo";
 import { Card, CardHeader, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
-import { getTodo } from "../../store/todo";
-import styles from "../../styles/Home.module.css";
 
 
 const AllTodo = () => {
@@ -12,11 +11,7 @@ const AllTodo = () => {
             <h1  style={{textAlign:"center"}}>All todo</h1>
 
             <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
-                {(AllTodo.length == 0)? <div className={styles.notFound}>
-                    <h5>Empty Todo</h5>
-                </div>
-                : 
-                AllTodo.map((e,i) => {
+                {AllTodo.map((e,i) => {
                     return(
                         <Grid item xs={12} sm={4} md={4} key={i} >
                             <Card style={{backgroundColor:"#ced8db"}}>
