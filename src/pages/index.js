@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, setUser } from './store/user'
+import { getUser, setUser } from '../store/user'
 import { useRouter } from 'next/router'
 
 

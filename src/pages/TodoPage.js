@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodo, setTodo } from "./store/todo";
-import { getUser } from "./store/user";
+import { getTodo, setTodo } from "../store/todo";
+import { getUser } from "../store/user";
 import toast, { Toaster } from 'react-hot-toast';
 import AllTodo from "./components/AllTodo";
 import ActiveTodo from "./components/ActiveTodo";
 import ExpiredTodo from "./components/ExpiredTodo";
-import { setActive } from "./store/active";
+import { setActive } from "../store/active";
 import { Add } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import styles from "../styles/Home.module.css";

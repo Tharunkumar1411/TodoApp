@@ -1,6 +1,6 @@
 import { Card, CardHeader, Grid, } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpire, } from "../store/expire";
+import { getExpire, } from "../../store/expire";
 
 
 const ExpiredTodo = () => {

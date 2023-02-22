@@ -1,8 +1,8 @@
 import { Button, Card, CardHeader, Grid, makeStyles } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getActive, removeActive } from "../store/active";
-import { setExpire } from "../store/expire";
-import { getTodo } from "../store/todo";
+import { getActive, removeActive } from "../../store/active";
+import { setExpire } from "../../store/expire";
+import { getTodo } from "../../store/todo";
 
 
 const ActiveTodo = () => {
