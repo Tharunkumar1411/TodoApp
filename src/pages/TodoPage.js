@@ -10,6 +10,7 @@ import { setActive } from "../store/active";
 import { Add } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import styles from "../styles/Home.module.css";
+import axios from "axios";
 
 const notify = () => toast.success('Your Todo Added.');
 
@@ -33,6 +34,9 @@ const TodoPage = () => {
         dispatch(setActive(form));
         handleClose();
         notify();
+        axios.get("http://localhost:3000/api/hello").then((data) => {
+            console.log(data);
+        })
     }
 
     return(
