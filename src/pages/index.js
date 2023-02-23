@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser, setUser } from '../store/user'
 import { useRouter } from 'next/router'
+import { Divider, IconButton } from '@mui/material'
+import { GitHub, LinkedIn, Twitter } from '@mui/icons-material'
 
 
 export default function Home() {
@@ -35,7 +37,7 @@ export default function Home() {
       </Head>
       <main>
 
-
+      
         <div className={styles.center}>
             <h1>ToDo App 📝</h1>
 
@@ -45,7 +47,15 @@ export default function Home() {
             />
             <button className={styles.btn} type="submit">Get Started</button>
           </form>
+
+          <div style={{padding:"0.2rem"}}>
+            <IconButton color="primary" onClick={() => window.open("https://github.com/Tharunkumar001",'_blank')}><GitHub /></IconButton>
+            <IconButton color="primary" onClick={() => window.open("https://www.linkedin.com/in/tharunkumar1411/",'_blank')}><LinkedIn /></IconButton>
+            <IconButton color="primary" onClick={() => window.open("https://twitter.com/tharunkumar1411",'_blank')}><Twitter /></IconButton>
+
+          </div>
         </div>
+
 
       </main>
     </>
