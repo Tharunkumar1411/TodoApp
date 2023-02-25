@@ -6,13 +6,8 @@ var user = new Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
-    },
     teleId: {
         type: String,
-        required: true
     },
 });
 

@@ -6,6 +6,7 @@ import { getUser, setUser } from '../store/user'
 import { useRouter } from 'next/router'
 import { Divider, IconButton } from '@mui/material'
 import { GitHub, LinkedIn, Twitter } from '@mui/icons-material'
+import axios from 'axios'
 
 
 export default function Home() {
@@ -16,15 +17,18 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log('tri')
+    const checkUser = axios.post("http://localhost:3000/api/auth",{name:form}).then((data) => {
+      console.log(data);
+    })
     dispatch(setUser(form));
-    router.push("/TodoPage");
-
   }
 
-  useEffect(() => {
-    
-  })
+  // useEffect(() => {
+  //   const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
+  //     console.log(data);
+  //   });
+  // },[])
 
 
   return (

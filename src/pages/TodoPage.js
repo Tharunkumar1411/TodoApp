@@ -7,7 +7,7 @@ import AllTodo from "./components/AllTodo";
 import ActiveTodo from "./components/ActiveTodo";
 import ExpiredTodo from "./components/ExpiredTodo";
 import { setActive } from "../store/active";
-import { Add } from "@mui/icons-material";
+import { AccountBox, Add } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
@@ -34,14 +34,16 @@ const TodoPage = () => {
         dispatch(setActive(form));
         handleClose();
         notify();
-        axios.get("http://localhost:3000/api/hello").then((data) => {
-            console.log(data);
-        })
+        // axios.get("http://localhost:3000/api/hello").then((data) => {
+        //     console.log(data);
+        // })
     }
 
     return(
         <div style={{paddingTop:"0.5rem"}}>
-            <h1 style={{padding:"1rem"}}>Welcome {UserDetail}</h1><br />
+            <div>
+                <h1  className={styles.profileDiv} style={{padding:"1rem"}}><AccountBox />{UserDetail}</h1><br />
+            </div>
 
             <Button variant="outlined" className={styles.addBtn} onClick={() => setOpen(true)}>
                 Add Todo's
