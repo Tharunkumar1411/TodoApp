@@ -15,6 +15,7 @@ import { toast, Toaster } from 'react-hot-toast'
 
 export default function Home() {
   const [form, setForm] = useState("");
+  const [type, setType] = useState({signIn:true, login:false})
   const dispatch = useDispatch();
   const UserDetails = useSelector(getUser);
   const router = useRouter();
@@ -53,13 +54,24 @@ export default function Home() {
 
       
         <div className={styles.center}>
-            <h1>ToDo App 📝</h1>
-
+            <h1 className="text-2xl font-bold pb-2">ToDo App 📝</h1>
+            <div className='flex justify-evenly gap-2'>
+              <button className={(type.signIn) ? 'bg-gray-400 border border-sky-500 p-2 rounded-md'  : 'border border-sky-500 p-2 rounded-md' } 
+                onClick={() => setType({...type, signIn:true, login:false})}
+              >Sign In</button>
+              <button className={(type.login) ? 'bg-gray-400 border border-sky-500 p-2 rounded-md'  : 'border border-sky-500 p-2 rounded-md' }
+                onClick={() => setType({...type, signIn:false, login:true})}
+              >Login</button>
+            </div>
           <form className={styles.indexBody} onSubmit={handleSubmit}>
+
             <input type="text" placeholder='UserName' required className={styles.inputField} value={form.trim()} 
               onChange={(e) => setForm(e.target.value)}
             />
-            <button className={styles.btn} type="submit">Get Started</button>
+            <input type="text" placeholder='TeleId' className={styles.inputField} value={form.trim()} 
+              onChange={(e) => setForm(e.target.value)}
+            />
+            <button className={styles.btn} type="submit">Get Started ➡️</button>
           </form>
 
           <div style={{padding:"0.2rem"}}>
@@ -69,6 +81,7 @@ export default function Home() {
 
           </div>
         </div>
+
 
         <Toaster
           position="top-center"
