@@ -1,7 +1,9 @@
-import { Card, CardHeader, Grid, } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpire, } from "../../store/expire";
-import styles from "../../styles/Home.module.css";
+import { getExpire, } from "../store/expire";
+import styles from "../styles/Home.module.css";
 
 const ExpiredTodo = () => {
     const ExpireTodo = useSelector(getExpire);

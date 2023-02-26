@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser, setUser } from '../store/user'
 import { useRouter } from 'next/router'
-import { Divider, IconButton } from '@mui/material'
-import { GitHub, LinkedIn, Twitter } from '@mui/icons-material'
+import IconButton from '@mui/material/IconButton'
+import GitHub from '@mui/icons-material/GitHub'
+import LinkedIn from '@mui/icons-material/LinkedIn'
+import Twitter from '@mui/icons-material/Twitter'
+
 import axios from 'axios'
+import { toast, Toaster } from 'react-hot-toast'
 
 
 export default function Home() {
@@ -15,20 +19,26 @@ export default function Home() {
   const UserDetails = useSelector(getUser);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('tri')
-    const checkUser = axios.post("http://localhost:3000/api/auth",{name:form}).then((data) => {
-      console.log(data);
-    })
-    dispatch(setUser(form));
+
+    const checkUserNameAvailable = UserDetails.includes(form);
+
+    if(!checkUserNameAvailable){
+      const checkUser = axios.post("http://localhost:3000/api/auth",{name:form});
+      const toast =  await toast.success("Account Created");
+      router.push("/TodoPage");
+    }else{
+      toast.error('Username Already Exist');
+    }
   }
 
-  // useEffect(() => {
-  //   const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
-  //     console.log(data);
-  //   });
-  // },[])
+
+  useEffect(() => {
+    const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
+      dispatch(setUser(data.data));
+    });
+  },[])
 
 
   return (
@@ -60,7 +70,10 @@ export default function Home() {
           </div>
         </div>
 
-
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
       </main>
     </>
   )

@@ -1,7 +1,9 @@
 import { getTodo } from "@/store/todo";
-import { Card, CardHeader, Grid } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
-import styles from "../../styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 
 const AllTodo = () => {
     const AllTodo = useSelector(getTodo);

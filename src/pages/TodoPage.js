@@ -3,19 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTodo, setTodo } from "../store/todo";
 import { getUser } from "../store/user";
 import toast, { Toaster } from 'react-hot-toast';
-import AllTodo from "./components/AllTodo";
-import ActiveTodo from "./components/ActiveTodo";
-import ExpiredTodo from "./components/ExpiredTodo";
+
 import { setActive } from "../store/active";
-import { AccountBox, Add } from "@mui/icons-material";
-import { Button, Dialog, DialogTitle } from "@mui/material";
+import AccountBox from "@mui/icons-material/AccountBox";
+import Button from "@mui/material/Button";
+import  Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogActions";
+
 import styles from "../styles/Home.module.css";
-import axios from "axios";
+import AllTodo from "./AllTodo";
+import ActiveTodo from "./ActiveTodo";
+import ExpiredTodo from "./ExpiredTodo";
 
 const notify = () => toast.success('Your Todo Added.');
 
 const TodoPage = () => {
-    const [tab, setTab] = useState(<AllTodo />)
+    const [tab, setTab] = useState()
     const TodoDetails = useSelector(getTodo);
     const UserDetail = useSelector(getUser);
     const [form, setForm] = useState("");
