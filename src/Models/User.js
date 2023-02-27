@@ -6,6 +6,10 @@ var user = new Schema({
         type: String,
         required: true
     },
+    password: {
+        type: String,
+        require: true
+    },
     teleId: {
         type: String,
     },

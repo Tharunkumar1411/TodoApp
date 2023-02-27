@@ -11,6 +11,10 @@ var todo = new Schema({
         type: String,
         required: true
     },
+    todoId: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         required: true
@@ -21,7 +25,7 @@ var todo = new Schema({
     },
     timeEnd: {
         type: Date,
-        default: Date.now
+        required: true
     }
 });
 

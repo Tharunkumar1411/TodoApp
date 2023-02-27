@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, setUser } from '../store/user'
+import { setUser } from '../store/user'
 import { useRouter } from 'next/router'
 import IconButton from '@mui/material/IconButton'
 import GitHub from '@mui/icons-material/GitHub'
@@ -14,32 +14,49 @@ import { toast, Toaster } from 'react-hot-toast'
 
 
 export default function Home() {
-  const [form, setForm] = useState("");
+  const [form, setForm] = useState({name:"",password:"",teleId:""});
   const [type, setType] = useState({signIn:true, login:false})
   const dispatch = useDispatch();
-  const UserDetails = useSelector(getUser);
   const router = useRouter();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
 
-    const checkUserNameAvailable = UserDetails.includes(form);
+    // const checkUserNameAvailable = UserDetails.includes(form.name);
 
-    if(!checkUserNameAvailable){
-      const checkUser = axios.post("http://localhost:3000/api/auth",{name:form});
-      const toast =  await toast.success("Account Created");
-      router.push("/TodoPage");
-    }else{
-      toast.error('Username Already Exist');
+    if(type.signIn){
+      const checkUser = axios.post("http://localhost:3000/api/auth",form).then((data)=>{
+        toast.error(`${data.data.message}`);
+        if(data.data.info){
+          router.push("/TodoPage");
+        }
+      })
+    }else if(type.login){
+      //setcurrent user then route
+      const getUser = axios.put("http://localhost:3000/api/auth",form).then((data) => {
+        toast.success(`${data.data.message}`);
+        dispatch(setUser(form));
+        if(data.data.info){
+          router.push("/TodoPage");
+        }
+      });
     }
+
+    // if(!checkUserNameAvailable && (type.signIn == true)){
+      // const checkUser = axios.post("http://localhost:3000/api/auth",{name:form});
+      // const toast =  await toast.success("Account Created");
+      // router.push("/TodoPage");
+    // }else if(checkUserNameAvailable && (type.signIn == true)){
+    //   toast.error('Username Already Exist');
+    // }
   }
 
 
-  useEffect(() => {
-    const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
-      dispatch(setUser(data.data));
-    });
-  },[])
+  // useEffect(() => {
+    // const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
+    //   dispatch(setUser(data.data));
+    // });
+  // },[])
 
 
   return (
@@ -65,12 +82,17 @@ export default function Home() {
             </div>
           <form className={styles.indexBody} onSubmit={handleSubmit}>
 
-            <input type="text" placeholder='UserName' required className={styles.inputField} value={form.trim()} 
-              onChange={(e) => setForm(e.target.value)}
+            <input type="text" placeholder='UserName' required className={styles.inputField} value={form.name.trim()} 
+              onChange={(e) => setForm({...form, name:e.target.value})}
             />
-            <input type="text" placeholder='TeleId' className={styles.inputField} value={form.trim()} 
-              onChange={(e) => setForm(e.target.value)}
+
+            <input type="password" placeholder='Password' required className={styles.inputField} value={form.password.trim()} 
+              onChange={(e) => setForm({...form, password:e.target.value})}
             />
+            <input type="text" placeholder='TeleId' className={styles.inputField} value={form.teleId.trim()} 
+              onChange={(e) => setForm({...form, teleId:e.target.value})}
+            />
+
             <button className={styles.btn} type="submit">Get Started ➡️</button>
           </form>
 
