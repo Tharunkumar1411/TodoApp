@@ -11,12 +11,11 @@ const ExpiredTodo = () => {
 
     return(
         <div>
-            <h1  style={{textAlign:"center"}}>Expire todo</h1>
 
             <Grid container spacing={2} style={{display:"flex",justifyContent:"center"}}>
                 {(ExpireTodo.length == 0)? 
                 <div className={styles.notFound}>
-                    <h5>Empty Todo</h5>
+                    <h5 className="text-2xl font-bold pb-2">Empty Todo</h5>
                 </div>
                 : ExpireTodo.map((e,i) => {
                     return(

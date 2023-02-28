@@ -27,9 +27,9 @@ const TodoPage = () => {
     const [type, setType] = useState("text");
     const [active, setActive] = useState({all:false, act:false, achieved:false});
     const username = useSelector(getUserDetails)
-    const [todoForm, setTodo] = useState({name:username.name,todo:'', start:Date.now ,end:'',status:'',todoId:''})
+    const [todo, setTodo] = useState({name:'',todo:'', start:'',end:'',status:'',todoId:''})
     const [form, setForm] = useState("");
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
 
     const handleClose = () => {
@@ -39,10 +39,13 @@ const TodoPage = () => {
     const handleClick = (val) => {
         if(val == 'All'){
             setActive({...active, all:true, act:false, achieved:false});
+            setTab(<AllTodo />)
         }else if(val == 'Active'){
             setActive({...active, all:false, act:true, achieved:false});
+            setTab(<ActiveTodo />)
         }else if(val == 'Achieved'){
             setActive({...active, all:false, act:false, achieved:true});
+            setTab(<ExpiredTodo />)
         }
     }
 
@@ -52,16 +55,14 @@ const TodoPage = () => {
         // })
     })
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch(setTodo(form));
-    //     dispatch(setActive(form));
-    //     handleClose();
-    //     notify();
-    //     // axios.get("http://localhost:3000/api/hello").then((data) => {
-    //     //     console.log(data);
-    //     // })
-    // }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        
+        // axios.get("http://localhost:3000/api/hello").then((data) => {
+        //     console.log(data);
+        // })
+    }
 
     return(
         <div>
@@ -74,9 +75,12 @@ const TodoPage = () => {
             
             </div>
             <div className="flex flex-col gap-4">
-                <button className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500">Add Todo +</button>
+                <button className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500"
+                    onClick={()=>setOpen(true)}
+                >
+                    Add Todo +</button>
                 
-                <div className="flex flex-row gap-8 justify-center">
+                <div className="flex flex-row gap-8 justify-center mt-8">
                     <Button 
                         variant = {(active.all)? 'outlined':'none'}
                         onClick = {()=> handleClick('All')}
@@ -98,8 +102,9 @@ const TodoPage = () => {
                 </div>
             </div>
 
-            <div className="flex justify-center mt-8">
-                <ProfilePage />
+            <div className="flex justify-center mt-4">
+
+                {(tab == null)? <ProfilePage /> : tab}
             </div>
 
             <Toaster
@@ -109,17 +114,26 @@ const TodoPage = () => {
 
             <Dialog 
                 open={open}
+                onClose={()=>setOpen(false)}
             >
                 <DialogTitle className="flex justify-center text-2xl font-bold pb-2">Add Your Todo</DialogTitle>
 
                 <DialogContent >
-                    <form className="flex flex-col pb-4 w-64">
-                        <input type="text" placeholder='Your Todo' required className={styles.inputField} value={todoForm.todo} 
-                            onChange={(e) => setForm({...todoForm, todo:e.target.value})}
+                    <form className="flex flex-col pb-4 w-64" onSubmit={handleSubmit}>
+                        {/* <input type="text" placeholder='Your Todo' required className={styles.inputField} value={todo.todo} 
+                            onChange={(e) => setForm({...todo, todo:e.target.value})}
                         />
 
-                        <input type={type}  onFocus={()=>setType("date")} placeholder='Todo End Time' required className={styles.inputField} value={todoForm.end} 
-                        onChange={(e) => setForm({...todoForm, end:e.target.value})}
+                        <input type={type}  onFocus={()=>setType("date")} placeholder='Todo End Time' required className={styles.inputField} value={todo.end} 
+                        onChange={(e) => setForm({...todo, end:e.target.value})}
+                        /> */}
+
+                        <input type="text" placeholder="Your Todo" className={styles.inputField} 
+                            value={todo.todo} onChange={(e)=> setTodo({...todo, todo:e.target.value})} required
+                        />
+
+                        <input type={type} onFocus={()=>setType("date")} placeholder="Todo End Date" className={styles.inputField} 
+                            value={todo.end} onChange={(e)=> setTodo({...todo, end:e.target.value})} required
                         />
                         
                     </form>
