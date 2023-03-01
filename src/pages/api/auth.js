@@ -15,9 +15,9 @@ const Auth = async(req,res) => {
                 res.status(200).send({info:true, message:'New User Added'});
             }else{
                 if(data.password == req.body.password){
-                    res.status(200).send({info:false, message:'Username Already Exist'});
+                    res.status(200).send({info:false, message:'Already Have an Account!'});
                 }else{
-                    res.status(200).send({info:false, message:'Wrong Password'});
+                    res.status(200).send({info:false, message:'Username Already Exist'});
                 }
             }
         })

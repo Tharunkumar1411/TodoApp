@@ -1,3 +1,4 @@
+import { Button, CardActions } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
@@ -19,9 +20,9 @@ const ExpiredTodo = () => {
                 </div>
                 : ExpireTodo.map((e,i) => {
                     return(
-                        <Grid item xs={12} sm={4} md={4} key={i} >
-                            <Card style={{backgroundColor:"#ced8db"}}>
-                                <CardHeader title={e} />
+                        <Grid item xs={12} sm={4} md={4} key={i}>
+                            <Card className="md:w-96 w-full border-l-4 border-indigo-500">
+                                <CardHeader title={e[0]} subheader={`Ends In: ${e[4].slice(0,10)}`}/>
                             </Card>
                         </Grid>
                     )

@@ -7,6 +7,7 @@ import { getActive, setActive } from "../store/active";
 import Button from "@mui/material/Button";
 import  Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogActions";
+import ReactLoading from 'react-loading';
 
 import styles from "../styles/Home.module.css";
 import AllTodo from "./AllTodo";
@@ -19,7 +20,7 @@ import { DialogContent } from "@mui/material";
 const TodoPage = () => {
     const [tab, setTab] = useState()
     const dispatch = useDispatch();
-
+    const [loading, setLoading] = useState(true)
     const [type, setType] = useState("text");
     const [active, setActiv] = useState({all:false, act:false, achieved:false});
     const username = useSelector(getUserDetails);
@@ -30,7 +31,6 @@ const TodoPage = () => {
     const [todo, setTodo] = useState({name:username.name, todo:'',end:'',status:'Active',todoId:todo_id})
     const [form, setForm] = useState("");
     const [open, setOpen] = useState(false);
-
 
     const handleClose = () => {
         setOpen(false);
@@ -50,17 +50,23 @@ const TodoPage = () => {
     }
 
     useEffect(() => {
-        axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
-            var arr = [];
-            var ele = data.data.todo;
-            ele.map((e,i)=>{
-                arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
-            });   
-
-            dispatch(setActive(arr));            
+        const apicall = async() => {
+            axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
+                var arr = [];
+                var ele = data.data.todo;
+                ele.map((e,i)=>{
+                    arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
+                });
+                dispatch(setActive(arr));
         });
-    },[]);
+        return true;
+    }
 
+        (async () => {
+            const wait = await apicall();
+            setLoading(false)
+        })();
+    },[]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -72,14 +78,20 @@ const TodoPage = () => {
                 toast.error(`${data.data.message}`)
             }
             setOpen(false);
-
         });
     }
 
     return(
+    <div>
+        {(loading == true) ? 
+        <div className="flex justify-center">
+            <ReactLoading type={"bubbles"} color={"blue"} height={'20%'} width={'20%'} 
+            />
+        </div>
+        :
         <div>
             <div className="flex flex-row gap-2 m-2 p-2">
-                <h1 className="text-2xl font-bold pb-2 border-b-4 border-sky-200">ToDo App</h1>
+                <h1 className="text-2xl font-bold pb-2 border-b-4 border-sky-200">{username.name}</h1>
                 {/* <div className="flex justify-evenly">
                     <button className="border-b-4 border-sky-200 rounded-md">Profile</button>
                     <button className="border-b-4 border-red-200 pl-2 pr-2 rounded-md">Logout</button>
@@ -154,6 +166,8 @@ const TodoPage = () => {
                 </DialogContent>
             </Dialog>
         </div>  
+        }
+    </div>
     )
 }
 
