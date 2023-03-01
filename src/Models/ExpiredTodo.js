@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
@@ -31,6 +30,6 @@ var todo = new Schema({
 
 mongoose.models = {};
 
-var Todo = mongoose.model('Todo', todo);
+var ExpiredTodo = mongoose.model('ExpiredTodo', todo);
 
-export default Todo;
+export default ExpiredTodo;

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodo, setTodo } from "../store/todo";
 import { getUser, getUserDetails } from "../store/user";
 import toast, { Toaster } from 'react-hot-toast';
 
-import { setActive } from "../store/active";
-import AccountBox from "@mui/icons-material/AccountBox";
+import { getActive, setActive } from "../store/active";
 import Button from "@mui/material/Button";
 import  Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogActions";
@@ -18,16 +16,18 @@ import ProfilePage from "./Profile";
 import axios from "axios";
 import { DialogContent } from "@mui/material";
 
-const notify = () => toast.success('Your Todo Added.');
-
 const TodoPage = () => {
     const [tab, setTab] = useState()
     const dispatch = useDispatch();
 
     const [type, setType] = useState("text");
-    const [active, setActive] = useState({all:false, act:false, achieved:false});
-    const username = useSelector(getUserDetails)
-    const [todo, setTodo] = useState({name:'',todo:'', start:'',end:'',status:'',todoId:''})
+    const [active, setActiv] = useState({all:false, act:false, achieved:false});
+    const username = useSelector(getUserDetails);
+
+    const todo_id = Date.now() + Math.floor(Math.random() * 100);
+
+
+    const [todo, setTodo] = useState({name:username.name, todo:'',end:'',status:'Active',todoId:todo_id})
     const [form, setForm] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -38,30 +38,42 @@ const TodoPage = () => {
 
     const handleClick = (val) => {
         if(val == 'All'){
-            setActive({...active, all:true, act:false, achieved:false});
+            setActiv({...active, all:true, act:false, achieved:false});
             setTab(<AllTodo />)
         }else if(val == 'Active'){
-            setActive({...active, all:false, act:true, achieved:false});
+            setActiv({...active, all:false, act:true, achieved:false});
             setTab(<ActiveTodo />)
         }else if(val == 'Achieved'){
-            setActive({...active, all:false, act:false, achieved:true});
+            setActiv({...active, all:false, act:false, achieved:true});
             setTab(<ExpiredTodo />)
         }
     }
 
     useEffect(() => {
-        // axios.put("http://localhost:3000/api/todo",userData).then((data)=>{
-        //     console.log(data);
-        // })
-    })
+        axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
+            var arr = [];
+            var ele = data.data.todo;
+            ele.map((e,i)=>{
+                arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
+            });   
+
+            dispatch(setActive(arr));            
+        });
+    },[]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        
-        // axios.get("http://localhost:3000/api/hello").then((data) => {
-        //     console.log(data);
-        // })
+        axios.post("http://localhost:3000/api/todo",todo).then((data) => {
+            if(data.data.info){
+                toast.success(`${data.data.message}`);
+            }else{
+                toast.error(`${data.data.message}`)
+            }
+            setOpen(false);
+
+        });
     }
 
     return(
@@ -103,7 +115,6 @@ const TodoPage = () => {
             </div>
 
             <div className="flex justify-center mt-4">
-
                 {(tab == null)? <ProfilePage /> : tab}
             </div>
 
@@ -136,8 +147,9 @@ const TodoPage = () => {
                             value={todo.end} onChange={(e)=> setTodo({...todo, end:e.target.value})} required
                         />
                         
+                        <button type="submit" className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500">Add ➡️</button>
+
                     </form>
-                    <button type="submit" className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500">Add ➡️</button>
 
                 </DialogContent>
             </Dialog>

@@ -33,7 +33,7 @@ const ActiveTodo = () => {
                     return(
                         <Grid item xs={12} sm={4} md={4} key={i} >
                             <Card style={{backgroundColor:"#ced8db"}}>
-                                <CardHeader title={e} />
+                                <CardHeader title={e[0]} subheader={`Ends In: ${e[4]}`}/>
                                 <Button onClick={() => handleDone(e)}>Completed ❔</Button>
                             </Card>
                         </Grid>
