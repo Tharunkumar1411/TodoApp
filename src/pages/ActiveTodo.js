@@ -31,7 +31,7 @@ const ActiveTodo = () => {
 
     const handleAchieved = () => {
             const addExpire = axios.post('http://localhost:3000/api/updateExpire',expire).then((data)=>{
-                console.log(data);
+                //console.log(data);
             })
 
             const removeApi = axios.put("http://localhost:3000/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
@@ -52,7 +52,6 @@ const ActiveTodo = () => {
         axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
             var arr = [];
             var ele = data.data.todo;
-            console.log(arr)
             ele.map((e,i)=>{
                 arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
             });

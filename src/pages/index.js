@@ -24,7 +24,6 @@ export default function Home() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     setLoading(true);
-    // const checkUserNameAvailable = UserDetails.includes(form.name);
 
     if(type.signIn){
       const checkUser = axios.post("http://localhost:3000/api/auth",form).then((data)=>{
@@ -46,26 +45,14 @@ export default function Home() {
           toast.success(`${data.data.message}`);
           router.push("/TodoPage");
         }else{
-          toast.error(`${data.data.message}`);
+          setLoading(false);
+          setTimeout(()=>{
+            toast.error(`${data.data.message}`);
+          },2000)
         }
       });
     }
-
-    // if(!checkUserNameAvailable && (type.signIn == true)){
-      // const checkUser = axios.post("http://localhost:3000/api/auth",{name:form});
-      // const toast =  await toast.success("Account Created");
-      // router.push("/TodoPage");
-    // }else if(checkUserNameAvailable && (type.signIn == true)){
-    //   toast.error('Username Already Exist');
-    // }
   }
-
-
-  // useEffect(() => {
-    // const getUser = axios.get("http://localhost:3000/api/auth").then((data) => {
-    //   dispatch(setUser(data.data));
-    // });
-  // },[])
 
 
   return (
@@ -77,7 +64,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-
+    
       {(loading)?  <div className="flex justify-center">
             <ReactLoading type={"bubbles"} color={"blue"} height={'20%'} width={'20%'} 
             />
@@ -124,6 +111,7 @@ export default function Home() {
           reverseOrder={false}
         />
       </div>
+  
   }
       </main>
     </>

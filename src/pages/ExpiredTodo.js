@@ -21,7 +21,6 @@ const ExpiredTodo = () => {
             ele.map((e,i)=>{
                 arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
             });
-            console.log(arr);
             dispatch(setExpire(arr));
     });
         return true;

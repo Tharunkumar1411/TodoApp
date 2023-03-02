@@ -104,7 +104,7 @@ const TodoPage = () => {
             </div>
 
             <div className="m-4">
-                {(tab == null)? <ProfilePage /> : tab}
+                {(!true)? <ProfilePage /> : tab}
             </div>
 
             <Toaster
@@ -116,9 +116,10 @@ const TodoPage = () => {
                 open={open}
                 onClose={()=>setOpen(false)}
             >
-                <DialogTitle className="flex justify-center text-2xl font-bold pb-2">Add Your Todo</DialogTitle>
 
                 <DialogContent >
+                <h1 className="text-center text-2xl font-bold pb-2">Add Your Todo</h1>
+
                     <form className="flex flex-col pb-4 w-64" onSubmit={handleSubmit}>
                         <input type="text" placeholder="Your Todo" className={styles.inputField} 
                             value={todo.todo} onChange={(e)=> setTodo({...todo, todo:e.target.value})} required
@@ -126,9 +127,9 @@ const TodoPage = () => {
 
                         <input type={type} onFocus={()=>setType("date")} placeholder="Todo End Date" className={styles.inputField} 
                             value={todo.end} onChange={(e)=> setTodo({...todo, end:e.target.value})} required
-                        />
+                        /><br />
                         
-                        <button type="submit" className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500">Add ➡️</button>
+                        <button type="submit" className="mx-auto p-1 rounded-md w-32 text-blue-500 border border-sky-500">Add ➡️</button>
 
                     </form>
 
