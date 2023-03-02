@@ -20,24 +20,19 @@ import { DialogContent } from "@mui/material";
 const TodoPage = () => {
     const [tab, setTab] = useState()
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [type, setType] = useState("text");
     const [active, setActiv] = useState({all:false, act:false, achieved:false});
     const username = useSelector(getUserDetails);
 
-    const todo_id = Date.now() + Math.floor(Math.random() * 100);
 
 
-    const [todo, setTodo] = useState({name:username.name, todo:'',end:'',status:'Active',todoId:todo_id})
+    const [todo, setTodo] = useState({name:username.name, todo:'',end:'',way:'getTodo'});
     const [form, setForm] = useState("");
     const [open, setOpen] = useState(false);
 
-    const handleClose = () => {
-        setOpen(false);
-    }
-
     const handleClick = (val) => {
-        if(val == 'All'){
+        if(val == 'All'){ 
             setActiv({...active, all:true, act:false, achieved:false});
             setTab(<AllTodo />)
         }else if(val == 'Active'){
@@ -49,24 +44,6 @@ const TodoPage = () => {
         }
     }
 
-    useEffect(() => {
-        const apicall = async() => {
-            axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
-                var arr = [];
-                var ele = data.data.todo;
-                ele.map((e,i)=>{
-                    arr.push([e.todo,e.todoId,e.status,e.timeEnd,e.timeStart])
-                });
-                dispatch(setActive(arr));
-        });
-        return true;
-    }
-
-        (async () => {
-            const wait = await apicall();
-            setLoading(false)
-        })();
-    },[]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -126,7 +103,7 @@ const TodoPage = () => {
                 </div>
             </div>
 
-            <div className="flex justify-center mt-4">
+            <div className="m-4">
                 {(tab == null)? <ProfilePage /> : tab}
             </div>
 
@@ -143,14 +120,6 @@ const TodoPage = () => {
 
                 <DialogContent >
                     <form className="flex flex-col pb-4 w-64" onSubmit={handleSubmit}>
-                        {/* <input type="text" placeholder='Your Todo' required className={styles.inputField} value={todo.todo} 
-                            onChange={(e) => setForm({...todo, todo:e.target.value})}
-                        />
-
-                        <input type={type}  onFocus={()=>setType("date")} placeholder='Todo End Time' required className={styles.inputField} value={todo.end} 
-                        onChange={(e) => setForm({...todo, end:e.target.value})}
-                        /> */}
-
                         <input type="text" placeholder="Your Todo" className={styles.inputField} 
                             value={todo.todo} onChange={(e)=> setTodo({...todo, todo:e.target.value})} required
                         />

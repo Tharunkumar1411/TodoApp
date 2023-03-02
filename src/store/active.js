@@ -9,7 +9,7 @@ const activeSlice = createSlice({
     initialState,
     reducers: {
         setActive(state, action) {
-            state.activelist = [...action.payload];
+            state.activelist = action.payload;
         },
         removeActive(state, action){
             state.activelist = action.payload;

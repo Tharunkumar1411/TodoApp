@@ -9,7 +9,7 @@ const expireSlice = createSlice({
     initialState,
     reducers: {
         setExpire(state, action) {
-            state.expirelist = [...state.expirelist,action.payload];
+            state.expirelist = action.payload;
         },
     }
 });

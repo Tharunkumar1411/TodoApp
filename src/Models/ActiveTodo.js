@@ -13,10 +13,12 @@ var activetodo = new Schema({
     },
     todoId: {
         type: String,
+        default: Date.now() + Math.floor(Math.random() * 100),
         required: true
     },
     status: {
         type: String,
+        default: 'Active',
         required: true
     },
     timeStart: {

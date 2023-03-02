@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton'
 import GitHub from '@mui/icons-material/GitHub'
 import LinkedIn from '@mui/icons-material/LinkedIn'
 import Twitter from '@mui/icons-material/Twitter'
+import ReactLoading from 'react-loading';
 
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
@@ -15,29 +16,37 @@ import { toast, Toaster } from 'react-hot-toast'
 
 export default function Home() {
   const [form, setForm] = useState({name:"",password:"",teleId:""});
-  const [type, setType] = useState({signIn:true, login:false})
+  const [type, setType] = useState({signIn:true, login:false});
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-
+    setLoading(true);
     // const checkUserNameAvailable = UserDetails.includes(form.name);
 
     if(type.signIn){
       const checkUser = axios.post("http://localhost:3000/api/auth",form).then((data)=>{
-        toast.error(`${data.data.message}`);
         if(data.data.info){
+          toast.success(`${data.data.message}`);
+          dispatch(setUser(form));
           router.push("/TodoPage");
+        }else{
+          setLoading(false);
+          setTimeout(()=>{
+            toast.error(`${data.data.message}`);
+          },2000)
         }
       })
     }else if(type.login){
-      //setcurrent user then route
       const getUser = axios.put("http://localhost:3000/api/auth",form).then((data) => {
-        toast.success(`${data.data.message}`);
-        dispatch(setUser(form));
         if(data.data.info){
+          dispatch(setUser(form));
+          toast.success(`${data.data.message}`);
           router.push("/TodoPage");
+        }else{
+          toast.error(`${data.data.message}`);
         }
       });
     }
@@ -69,7 +78,12 @@ export default function Home() {
       </Head>
       <main>
 
-      
+      {(loading)?  <div className="flex justify-center">
+            <ReactLoading type={"bubbles"} color={"blue"} height={'20%'} width={'20%'} 
+            />
+        </div>
+        : 
+      <div>
         <div className={styles.center}>
             <h1 className="text-2xl font-bold pb-2">ToDo App 📝</h1>
             <div className='flex justify-evenly gap-2'>
@@ -109,6 +123,8 @@ export default function Home() {
           position="top-center"
           reverseOrder={false}
         />
+      </div>
+  }
       </main>
     </>
   )

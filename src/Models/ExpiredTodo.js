@@ -20,10 +20,10 @@ var todo = new Schema({
     },
     timeStart: {
         type: Date,
-        default: Date.now
     },
     timeEnd: {
         type: Date,
+        default: Date.now,
         required: true
     }
 });
