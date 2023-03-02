@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit")
 
 const initialState = {
-    username: "",
+    userDetails: {}
 };
 
 const userSlice = createSlice({
@@ -9,13 +9,13 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser(state, action) {
-            state.username = action.payload;
+            state.userDetails = action.payload
         },
     }
 });
 
 export const { setUser } = userSlice.actions;
 
-export const getUser = (state) => state.user.username;
+export const getUserDetails = (state) => state.user.userDetails;
 
 export default userSlice.reducer;

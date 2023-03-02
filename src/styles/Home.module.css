@@ -33,6 +33,12 @@
 
 /*TodoPage*/
 
+.profileDiv {
+  border: solid 0.2rem black;
+  padding: 0.2rem;
+  width: fit-content;
+
+}
 .addBtn {
   color:white;
   font-weight:bold;
