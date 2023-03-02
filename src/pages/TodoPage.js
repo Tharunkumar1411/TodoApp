@@ -48,7 +48,7 @@ const TodoPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        axios.post("http://localhost:3000/api/todo",todo).then((data) => {
+        axios.post("https://todo-app-tharunkumar.vercel.app/api/todo",todo).then((data) => {
             if(data.data.info){
                 toast.success(`${data.data.message}`);
             }else{
