@@ -12,14 +12,18 @@ import ReactLoading from 'react-loading';
 
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
-
+import backImg from "../../public/backImg.avif";
+import Image from 'next/image'
 
 export default function Home() {
-  const [form, setForm] = useState({name:"",password:"",teleId:""});
+  const [form, setForm] = useState({name:"",password:"",teleId:"",entry:Date.now()});
   const [type, setType] = useState({signIn:true, login:false});
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const router = useRouter();
+
+
+
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -70,7 +74,13 @@ export default function Home() {
             />
         </div>
         : 
-      <div>
+      <div >
+          <Image
+              src={backImg}
+              quality={100}
+              style={{objectFit: 'cover',layout:'fill',width:"100%",height:"100vh"}}
+              
+          />
         <div className={styles.center}>
             <h1 className="text-2xl font-bold pb-2">ToDo App 📝</h1>
             <div className='flex justify-evenly gap-2'>
@@ -90,9 +100,9 @@ export default function Home() {
             <input type="password" placeholder='Password' required className={styles.inputField} value={form.password.trim()} 
               onChange={(e) => setForm({...form, password:e.target.value})}
             />
-            <input type="text" placeholder='TeleId' className={styles.inputField} value={form.teleId.trim()} 
+            {/* <input type="text" placeholder='TeleId' className={styles.inputField} value={form.teleId.trim()} 
               onChange={(e) => setForm({...form, teleId:e.target.value})}
-            />
+            /> */}
 
             <button className={styles.btn} type="submit">Get Started ➡️</button>
           </form>
@@ -101,10 +111,8 @@ export default function Home() {
             <IconButton color="primary" onClick={() => window.open("https://github.com/Tharunkumar001",'_blank')}><GitHub /></IconButton>
             <IconButton color="primary" onClick={() => window.open("https://www.linkedin.com/in/tharunkumar1411/",'_blank')}><LinkedIn /></IconButton>
             <IconButton color="primary" onClick={() => window.open("https://twitter.com/tharunkumar1411",'_blank')}><Twitter /></IconButton>
-
           </div>
         </div>
-
 
         <Toaster
           position="top-center"

@@ -13,6 +13,10 @@ var user = new Schema({
     teleId: {
         type: String,
     },
+    entry:{
+        type: Date,
+        default:Date.now(),
+    }
 });
 
 mongoose.models = {};
