@@ -26,7 +26,7 @@ export default function Home() {
     setLoading(true);
 
     if(type.signIn){
-      const checkUser = axios.post("http://localhost:3000/api/auth",form).then((data)=>{
+      const checkUser = axios.post("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data)=>{
         if(data.data.info){
           toast.success(`${data.data.message}`);
           dispatch(setUser(form));
@@ -39,7 +39,7 @@ export default function Home() {
         }
       })
     }else if(type.login){
-      const getUser = axios.put("http://localhost:3000/api/auth",form).then((data) => {
+      const getUser = axios.put("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data) => {
         if(data.data.info){
           dispatch(setUser(form));
           toast.success(`${data.data.message}`);
