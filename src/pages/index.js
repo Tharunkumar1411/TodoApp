@@ -12,7 +12,8 @@ import ReactLoading from 'react-loading';
 
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
-
+import backImg from "../../public/backImg.avif";
+import Image from 'next/image'
 
 export default function Home() {
   const [form, setForm] = useState({name:"",password:"",teleId:"",entry:Date.now()});
@@ -20,6 +21,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
   const router = useRouter();
+
+
+
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -70,7 +74,13 @@ export default function Home() {
             />
         </div>
         : 
-      <div>
+      <div >
+          <Image
+              src={backImg}
+              quality={100}
+              style={{objectFit: 'cover',layout:'fill',width:"100%",height:"100vh"}}
+              
+          />
         <div className={styles.center}>
             <h1 className="text-2xl font-bold pb-2">ToDo App 📝</h1>
             <div className='flex justify-evenly gap-2'>
