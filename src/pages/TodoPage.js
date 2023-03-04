@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getUserDetails } from "../store/user";
+import { getUserDetails } from "../store/user";
 import toast, { Toaster } from 'react-hot-toast';
 
-import { getActive, setActive } from "../store/active";
 import Button from "@mui/material/Button";
 import  Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogActions";
 import ReactLoading from 'react-loading';
 
 import styles from "../styles/Home.module.css";
@@ -15,7 +13,11 @@ import ActiveTodo from "./ActiveTodo";
 import ExpiredTodo from "./ExpiredTodo";
 import ProfilePage from "./Profile";
 import axios from "axios";
-import { DialogContent } from "@mui/material";
+import { Badge, DialogContent } from "@mui/material";
+import { getActiveCount, setActiveCount, setCount } from "@/store/active";
+import { getExpireCount, setExpireCount } from "@/store/expire";
+import { LogoutOutlined, Person2Rounded } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const TodoPage = () => {
     const [tab, setTab] = useState()
@@ -24,12 +26,13 @@ const TodoPage = () => {
     const [type, setType] = useState("text");
     const [active, setActiv] = useState({all:false, act:false, achieved:false});
     const username = useSelector(getUserDetails);
-
-
+    const router = useRouter();
 
     const [todo, setTodo] = useState({name:username.name, todo:'',end:'',way:'getTodo'});
     const [form, setForm] = useState("");
     const [open, setOpen] = useState(false);
+    const activeCount = useSelector(getActiveCount);
+    const expireCount = useSelector(getExpireCount);
 
     const handleClick = (val) => {
         if(val == 'All'){ 
@@ -44,11 +47,17 @@ const TodoPage = () => {
         }
     }
 
+    const handleLogout = () => {
+        setLoading(true);
+        setTimeout(() =>{
+            router.replace("/");
+        },2000)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        axios.post("https://todo-app-tharunkumar.vercel.app/api/todo",todo).then((data) => {
+        axios.post("http://localhost:3000/api/todo",todo).then((data) => {
             if(data.data.info){
                 toast.success(`${data.data.message}`);
             }else{
@@ -56,8 +65,22 @@ const TodoPage = () => {
             }
             setOpen(false);
         });
+        
     }
+    useEffect(()=>{
+        (async() => { 
+            const getActiveCountApi = await axios.put("http://localhost:3000/api/todo",{name:username.name}).then((data)=>{
+                const activeCount = data.data.todo.length;
+                dispatch(setActiveCount(activeCount));
+            })
 
+            const getAchievedCountApi = await axios.put("http://localhost:3000/api/getExpire",{name:username.name}).then((data)=>{
+                const expireCount = data.data.todo.length;
+                dispatch(setExpireCount(expireCount));
+            })
+    
+        })();
+    })
     return(
     <div>
         {(loading == true) ? 
@@ -67,15 +90,16 @@ const TodoPage = () => {
         </div>
         :
         <div>
-            <div className="flex flex-row gap-2 m-2 p-2">
-                <h1 className="text-2xl font-bold pb-2 border-b-4 border-sky-200">{username.name}</h1>
-                {/* <div className="flex justify-evenly">
-                    <button className="border-b-4 border-sky-200 rounded-md">Profile</button>
-                    <button className="border-b-4 border-red-200 pl-2 pr-2 rounded-md">Logout</button>
-                </div> */}
-            
+            <div className="flex flex-row justify-between gap-2 m-2 p-2">
+                
+                <h1 onClick={() => setTab(null)} className="text-2xl cursor-pointer font-bold pb-2 bg-cyan-500 hover:border-violet-900 border-2 rounded-md pr-2">
+                    <Person2Rounded /> {username.name}
+                </h1>
+
+                <label onClick={handleLogout} className="cursor-pointer"><strong>Logout</strong>
+                <LogoutOutlined className="m-2"/></label>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pt-2">
                 <button className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500"
                     onClick={()=>setOpen(true)}
                 >
@@ -88,23 +112,24 @@ const TodoPage = () => {
                     >
                         All
                     </Button>
-                    <Button 
+                    <Badge badgeContent={activeCount} color="primary" variant="string"><Button 
                         variant = {(active.act)? 'outlined':'none'}
                         onClick = {()=> handleClick('Active')}
                     >
                         Active
-                    </Button>
-                    <Button 
+                    </Button></Badge>
+
+                    <Badge badgeContent={expireCount} color="primary" variant="string"><Button 
                         variant = {(active.achieved)? 'outlined':'none'}
                         onClick = {()=> handleClick('Achieved')}
                     >
                         Achieved
-                    </Button>
+                    </Button></Badge>
                 </div>
             </div>
 
             <div className="m-4">
-                {(!true)? <ProfilePage /> : tab}
+                {(tab == null)? <ProfilePage /> : tab}
             </div>
 
             <Toaster

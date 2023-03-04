@@ -15,7 +15,7 @@ import { toast, Toaster } from 'react-hot-toast'
 
 
 export default function Home() {
-  const [form, setForm] = useState({name:"",password:"",teleId:""});
+  const [form, setForm] = useState({name:"",password:"",teleId:"",entry:Date.now()});
   const [type, setType] = useState({signIn:true, login:false});
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function Home() {
     setLoading(true);
 
     if(type.signIn){
-      const checkUser = axios.post("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data)=>{
+      const checkUser = axios.post("http://localhost:3000/api/auth",form).then((data)=>{
         if(data.data.info){
           toast.success(`${data.data.message}`);
           dispatch(setUser(form));
@@ -39,7 +39,7 @@ export default function Home() {
         }
       })
     }else if(type.login){
-      const getUser = axios.put("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data) => {
+      const getUser = axios.put("http://localhost:3000/api/auth",form).then((data) => {
         if(data.data.info){
           dispatch(setUser(form));
           toast.success(`${data.data.message}`);
@@ -90,9 +90,9 @@ export default function Home() {
             <input type="password" placeholder='Password' required className={styles.inputField} value={form.password.trim()} 
               onChange={(e) => setForm({...form, password:e.target.value})}
             />
-            <input type="text" placeholder='TeleId' className={styles.inputField} value={form.teleId.trim()} 
+            {/* <input type="text" placeholder='TeleId' className={styles.inputField} value={form.teleId.trim()} 
               onChange={(e) => setForm({...form, teleId:e.target.value})}
-            />
+            /> */}
 
             <button className={styles.btn} type="submit">Get Started ➡️</button>
           </form>
@@ -101,10 +101,8 @@ export default function Home() {
             <IconButton color="primary" onClick={() => window.open("https://github.com/Tharunkumar001",'_blank')}><GitHub /></IconButton>
             <IconButton color="primary" onClick={() => window.open("https://www.linkedin.com/in/tharunkumar1411/",'_blank')}><LinkedIn /></IconButton>
             <IconButton color="primary" onClick={() => window.open("https://twitter.com/tharunkumar1411",'_blank')}><Twitter /></IconButton>
-
           </div>
         </div>
-
 
         <Toaster
           position="top-center"

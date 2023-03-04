@@ -18,7 +18,7 @@ const Todo = async(req,res) => {
         }
 
     }else if(req.method == 'GET'){
-
+        
     }else if(req.method == 'PUT'){
         const getTodo = ActiveTodo.find({name:req.body.name}).then((data)=>{
             res.status(200).send({info:true, todo:data, message:'Active Todo Fetched'})

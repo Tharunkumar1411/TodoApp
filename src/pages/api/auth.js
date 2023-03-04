@@ -9,7 +9,8 @@ const Auth = async(req,res) => {
                 const profile = new User({
                     name: req.body.name,
                     password: req.body.password,
-                    teleId: req.body.teleId
+                    teleId: req.body.teleId,
+                    entry: req.body.entry
                 });
                 profile.save();
                 res.status(200).send({info:true, message:'New User Added'});

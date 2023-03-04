@@ -30,11 +30,11 @@ const ActiveTodo = () => {
     }
 
     const handleAchieved = () => {
-            const addExpire = axios.post('https://todo-app-tharunkumar.vercel.app/api/updateExpire',expire).then((data)=>{
+            const addExpire = axios.post('http://localhost:3000/api/updateExpire',expire).then((data)=>{
                 //console.log(data);
             })
 
-            const removeApi = axios.put("https://todo-app-tharunkumar.vercel.app/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
+            const removeApi = axios.put("http://localhost:3000/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
                 toast.success("Todo Achieved");
             });
 
@@ -42,14 +42,14 @@ const ActiveTodo = () => {
         }
 
         const handleRemove = () => {
-            const removeApi = axios.put("https://todo-app-tharunkumar.vercel.app/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
+            const removeApi = axios.put("http://localhost:3000/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
                 toast.success("Todo Achieved");
             });
 
             setOpen(false);
         }
     const apicall = async() => {
-        axios.put("https://todo-app-tharunkumar.vercel.app/api/todo",{name: username.name}).then((data)=>{
+        axios.put("http://localhost:3000/api/todo",{name: username.name}).then((data)=>{
             var arr = [];
             var ele = data.data.todo;
             ele.map((e,i)=>{

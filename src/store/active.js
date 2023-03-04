@@ -2,6 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit")
 
 const initialState = {
     activelist: [],
+    activecount: '',
 };
 
 const activeSlice = createSlice({
@@ -13,12 +14,16 @@ const activeSlice = createSlice({
         },
         removeActive(state, action){
             state.activelist = action.payload;
+        },
+        setActiveCount(state, action){
+            state.activecount = action.payload;
         }
     }
 });
 
-export const { setActive, removeActive } = activeSlice.actions;
+export const { setActive, removeActive, setActiveCount } = activeSlice.actions;
 
 export const getActive = (state) => state.active.activelist;
+export const getActiveCount = (state) => state.active.activecount;
 
 export default activeSlice.reducer;

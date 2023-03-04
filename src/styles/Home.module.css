@@ -91,3 +91,9 @@
 .completedBtn{
   border: 0.2rem solid grey
 }
+
+.backclr{
+  background: rgb(64,172,240);
+  background: linear-gradient(107deg, rgba(64,172,240,1) 84%, rgba(43,41,44,1) 99%, rgba(240,242,244,1) 100%);
+  width: 15rem;
+}
