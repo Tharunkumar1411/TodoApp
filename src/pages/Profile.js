@@ -21,8 +21,8 @@ const ProfilePage = () => {
     
 
     return(
-        <div className="flex flex-col pt-4 md:flex-row justify-evenly gap-2 gap-2 w-full">
-            <div className="flex justify-center">
+        <div className="flex flex-col pt-4 md:pt-12 md:flex-row justify-evenly gap-2 gap-2 w-full">
+            <div className="flex justify-center h-fit">
                 <Card className={styles.backclr}>
 
                     <CardContent>
@@ -44,18 +44,16 @@ const ProfilePage = () => {
                 </Card>
             </div>
 
-            <div className="md:mt-8 mt-2">
-                <div>
+            <div className="flex justify-center pt-4 ">
+                <div className="w-4/5">
                     <h1 className="text-2xl font-bold pb-2 text-center">Add Telegram Bot</h1>
-                    <p>(This will help you to effective with your todo's)</p>
-                    <ul className="mt-4">
-                        <li>You will notify through telegram.</li>
-                        <li>You can update todo status through telegram.</li>
-                        <li>No need to visit website all the time.</li>
+                    <ul className="mt-4 flex md:flex-row flex-col ">
+                        <li className="p-2">1. You will receive notifications on Telegram, which will keep you informed about any updates to your to-do list.</li>
+                        <li className="p-2">2. Using the Telegram app, you can also update the status of your to-do list, such as marking tasks as completed or adding new items.</li>
+                        <li className="p-2">3. This feature eliminates the need to constantly visit the website to check for updates or make changes, making the process more convenient and efficient for you.</li>
                     </ul><br />
-                    <Button className="" variant="outlined" size="small" onClick={() => notify()}>Add Bot</Button><br />
+                    <Button className="" variant="outlined" size="small" onClick={() => notify()}>Add Bot</Button><br /><br />
                 </div>
-                <br /><Divider />
 
             </div>
         </div>

@@ -79,7 +79,6 @@ export default function Home() {
               src={backImg}
               quality={100}
               style={{objectFit: 'cover',layout:'fill',width:"100%",height:"100vh"}}
-              
           />
         <div className={styles.center}>
             <h1 className="text-2xl font-bold pb-2">ToDo App 📝</h1>

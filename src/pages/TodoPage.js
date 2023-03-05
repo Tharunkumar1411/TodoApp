@@ -13,7 +13,7 @@ import ActiveTodo from "./ActiveTodo";
 import ExpiredTodo from "./ExpiredTodo";
 import ProfilePage from "./Profile";
 import axios from "axios";
-import { Badge, DialogContent } from "@mui/material";
+import { Badge, DialogContent, Divider } from "@mui/material";
 import { getActiveCount, setActiveCount, setCount } from "@/store/active";
 import { getExpireCount, setExpireCount } from "@/store/expire";
 import { LogoutOutlined, Person2Rounded } from "@mui/icons-material";
@@ -53,7 +53,12 @@ const TodoPage = () => {
             router.replace("/");
         },2000)
     }
-
+    
+    const handleProfileClick = () => {
+        setActiv({...active, all:false, act:false, achieved:false});
+        setTab(null);
+    }
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -92,13 +97,14 @@ const TodoPage = () => {
         <div>
             <div className="flex flex-row justify-between gap-2 m-2 p-2">
                 
-                <h1 onClick={() => setTab(null)} className="text-2xl cursor-pointer font-bold pb-2 bg-cyan-500 hover:border-violet-900 border-2 rounded-md pr-2">
+                <h1 onClick={handleProfileClick} className="text-2xl cursor-pointer font-bold pb-1 bg-sky-500 hover:border-violet-900 border-2 rounded-md pr-2">
                     <Person2Rounded /> {username.name}
                 </h1>
 
                 <label onClick={handleLogout} className="cursor-pointer"><strong>Logout</strong>
                 <LogoutOutlined className="m-2"/></label>
             </div>
+            <Divider textAlign="center" className="" variant="middle"/>
             <div className="flex flex-col gap-4 pt-2">
                 <button className="mx-auto p-2 rounded-md w-32 text-blue-500 border border-sky-500"
                     onClick={()=>setOpen(true)}
