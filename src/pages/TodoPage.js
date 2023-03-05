@@ -53,6 +53,11 @@ const TodoPage = () => {
             router.replace("/");
         },2000)
     }
+    
+    const handleProfileClick = () => {
+        setActiv({...active, all:false, act:false, achieved:false});
+        setTab(null);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -92,7 +97,7 @@ const TodoPage = () => {
         <div>
             <div className="flex flex-row justify-between gap-2 m-2 p-2">
                 
-                <h1 onClick={() => setTab(null)} className="text-2xl cursor-pointer font-bold pb-2 bg-cyan-500 hover:border-violet-900 border-2 rounded-md pr-2">
+                <h1 onClick={handleProfileClick} className="text-2xl cursor-pointer font-bold pb-1 bg-sky-500 hover:border-violet-900 border-2 rounded-md pr-2">
                     <Person2Rounded /> {username.name}
                 </h1>
 

@@ -22,7 +22,7 @@ const ActiveTodo = () => {
     const [expire, setExpire] = useState({name:'',todoId:'',todo:'',status:'Achieved',startTime:''});
     const [open, setOpen] = useState(false);
     const [dialog, setDialog] = useState("")
-
+    
     const handleDone = (e,type) =>{
         setOpen(true);
         setDialog(type);
@@ -32,7 +32,7 @@ const ActiveTodo = () => {
     const handleAchieved = () => {
             const addExpire = axios.post('https://todo-app-tharunkumar.vercel.app/api/updateExpire',expire).then((data)=>{
                 //console.log(data);
-            })
+            });
 
             const removeApi = axios.put("https://todo-app-tharunkumar.vercel.app/api/updateExpire",{name:username.name,todoId:expire.todoId}).then((data)=>{
                 toast.success("Todo Achieved");
