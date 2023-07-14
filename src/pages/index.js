@@ -15,6 +15,8 @@ import { toast, Toaster } from 'react-hot-toast'
 import backImg from "../../public/backImg.avif";
 import Image from 'next/image'
 
+
+
 export default function Home() {
   const [form, setForm] = useState({name:"",password:"",teleId:"",entry:Date.now()});
   const [type, setType] = useState({signIn:true, login:false});
@@ -22,7 +24,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-
+  
 
 
   const handleSubmit = async(e) => {
@@ -30,9 +32,9 @@ export default function Home() {
     setLoading(true);
 
     if(type.signIn){
-      const checkUser = axios.post("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data)=>{
+      const checkUser = axios.post("api/auth",form).then((data)=>{
         if(data.data.info){
-          toast.success(`${data.data.message}`);
+          toast.success(`${data.data.message}`);  
           dispatch(setUser(form));
           router.push("/TodoPage");
         }else{
@@ -43,7 +45,7 @@ export default function Home() {
         }
       })
     }else if(type.login){
-      const getUser = axios.put("https://todo-app-tharunkumar.vercel.app/api/auth",form).then((data) => {
+      const getUser = axios.put("api/auth",form).then((data) => {
         if(data.data.info){
           dispatch(setUser(form));
           toast.success(`${data.data.message}`);
@@ -62,7 +64,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Todo App</title>
+        <title>Todo </title>
         <meta name="description" content="Basic Todo Application" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

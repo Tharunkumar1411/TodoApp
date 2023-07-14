@@ -15,7 +15,7 @@ const ExpiredTodo = () => {
     const username = useSelector(getUserDetails);
 
     const apicall = async() => {
-        axios.put("https://todo-app-tharunkumar.vercel.app/api/getExpire",{name: username.name}).then((data)=>{
+        axios.put("api/getExpire",{name: username.name}).then((data)=>{
             var arr = [];
             var ele = data.data.todo;
             ele.map((e,i)=>{

@@ -62,7 +62,7 @@ const TodoPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        axios.post("https://todo-app-tharunkumar.vercel.app/api/todo",todo).then((data) => {
+        axios.post("api/todo",todo).then((data) => {
             if(data.data.info){
                 toast.success(`${data.data.message}`);
             }else{
@@ -74,12 +74,12 @@ const TodoPage = () => {
     }
     useEffect(()=>{
         (async() => { 
-            const getActiveCountApi = await axios.put("https://todo-app-tharunkumar.vercel.app/api/todo",{name:username.name}).then((data)=>{
+            const getActiveCountApi = await axios.put("api/todo",{name:username.name}).then((data)=>{
                 const activeCount = data.data.todo.length;
                 dispatch(setActiveCount(activeCount));
             })
 
-            const getAchievedCountApi = await axios.put("https://todo-app-tharunkumar.vercel.app/api/getExpire",{name:username.name}).then((data)=>{
+            const getAchievedCountApi = await axios.put("api/getExpire",{name:username.name}).then((data)=>{
                 const expireCount = data.data.todo.length;
                 dispatch(setExpireCount(expireCount));
             })
