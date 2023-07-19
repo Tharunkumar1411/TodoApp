@@ -9,7 +9,7 @@ const connectDB = handler => async (req, res) => {
   mongoose.set("strictQuery", false);
 
   // Use new db connection
-  await mongoose.connect(process.env.mongodburl, {
+  await mongoose.connect(process.env.NEXT_PUBLIC_MONGODBURL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   });
